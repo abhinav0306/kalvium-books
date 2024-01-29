@@ -4,7 +4,7 @@ import RegistrationForm from './components/RegistrationForm'
 const App = () => {
   return (
     <div>
-      
+     
       <HomePage/>
     </div>
   )
