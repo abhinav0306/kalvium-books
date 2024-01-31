@@ -1,8 +1,11 @@
-import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+
 const RegistrationForm = () => {
-    const [success, setSuccess] = React.useState(false);
+    const [success, setSuccess] = useState(false);
+    const [data, setData] = useState(null); 
+    // using useForm hook to complete validation
     const {
         register,
         handleSubmit,
@@ -11,16 +14,20 @@ const RegistrationForm = () => {
     } = useForm();
 
     const password = watch("password", "");
-
-    const onSubmit = () => {
+    // this onsubmit function will take data as in parameter and will set the data and then console it, it will also set state true to success
+    const onSubmit = (data) => {
+        setData(data);
+        console.log(data);
         setSuccess(true);
     };
 
     return (
         <div className="max-w-md mx-auto mt-20">
-           <Link to={"/"}> <img src="https://raw.githubusercontent.com/abhinav0306/kalvium-books/main/kalvium-books/src/assets/logo.png" alt="" /></Link>
+            <Link to={"/"}>
+                <img src="https://raw.githubusercontent.com/abhinav0306/kalvium-books/main/kalvium-books/src/assets/logo.png" alt="" />
+            </Link>
             <form className="bg-white shadow-md rounded px-8 mt-12 pt-6 pb-8  mb-4" onSubmit={handleSubmit(onSubmit)}>
-                <div className="mb-4">
+            <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                         Name
                     </label>
@@ -29,7 +36,15 @@ const RegistrationForm = () => {
                         id="name"
                         type="text"
                         name="name"
-                        {...register("name", { required: "Name is required" })}
+                        {...register("name", { required: "Name is required",
+                        minLength: {
+                            value: 3,
+                            message: "Name should be atleast 3 characters",
+                        } ,
+                        maxLength: {
+                            value: 30,
+                            message: "Name cannot be more than 30 characters",
+                        }})}
                     />
                     {errors.name && <p className="text-red-500 text-xs italic">{errors.name.message}</p>}
                 </div>
@@ -73,6 +88,7 @@ const RegistrationForm = () => {
                             },
                         })}
                     />
+                    {/* error message */}
                     {errors.password && <p className="text-red-500 text-xs italic">{errors.password.message}</p>}
                 </div>
                 <div className="mb-4">
@@ -98,12 +114,14 @@ const RegistrationForm = () => {
                     >
                         Submit
                     </button>
+                    {/* this block will only get displayed when success is true, it is done by using conditional rendering  */}
                     {success && (
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded " role="alert">
                     <p className="font-bold">Registration Successful!!</p>
                 </div>
             )}
                 </div>
+                
             </form>
         </div>
     );
