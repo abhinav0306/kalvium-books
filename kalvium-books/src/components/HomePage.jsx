@@ -34,7 +34,7 @@ const HomePage = () => {
   return (
     <>
       <div className="container mx-auto p-4 md:p-8">
-        <div className="flex justify-between items-center mb-8 border-b-2 border-black py-8">
+        <div className="flex justify-between items-center mb-8 border-b-2 border-black pb-8">
           {/* logo */}
           <Link to={"/"}>
             <img
