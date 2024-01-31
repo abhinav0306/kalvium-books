@@ -101,7 +101,7 @@ const RegistrationForm = () => {
                         type="password"
                         name="repeatPassword"
                         {...register("repeatPassword", {
-                            required: "Repeat password is required",
+                            required: "Confirm password is required",
                             validate: (value) => value === password || "Passwords do not match",
                         })}
                     />
